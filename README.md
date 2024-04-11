@@ -1,4 +1,4 @@
-### Create an expense sharing application.
+# Create an expense sharing application.
 
 An expense sharing application is where you can add your expenses and split it among different people. The app keeps balances between people as in who owes how much to whom.
 
@@ -70,7 +70,7 @@ User3 owes User1: 1130 (1130+0)
 
 User3 owes User4: 240 (0+240)
 
-Requirements
+### Requirements
 
 User: Each user should have a userId, name, email, mobile number.
 
@@ -90,7 +90,7 @@ When asked to show balances, the application should show balances of a user with
 
 The amount should be rounded off to two decimal places. Say if User1 paid 100 and amount is split equally among 3 people. Assign 33.34 to first person and 33.33 to others.
 
-Input
+### Input
 
 You can create a few users in your main method. No need to take it as input.
 
@@ -102,7 +102,7 @@ Show balances for all: SHOW
 
 Show balances for a single user: SHOW <user-id>
 
-Output
+### Output
 
 When asked to show balance for a single user. Show all the balances that user is part of:
 
@@ -112,7 +112,7 @@ If there are no balances for the input, print No balances
 
 In cases where the user for which balance was asked for, owes money, they’ll be x. They’ll be y otherwise.
 
-Optional Requirements
+### Optional Requirements
 
 - A way to add an expense name while adding the expense. Can also add notes, images, etc.
 
@@ -124,7 +124,7 @@ Optional Requirements
 
 There could be different ways to design a solution for this. I’ll mention how I would have approached it during an actual interview.
 
-Let’s dissect the problem statement to determine how to design a good solution for it.
+### Let’s dissect the problem statement to determine how to design a good solution for it.
 
 The gist of the problem statement is that we need to create an expense sharing application. The application will have multiple users, an option to add expenses (EQUAL, EXACT or PERCENT) and an option to show balances (All or a specific user).
 
@@ -133,16 +133,25 @@ Here I’ve decided that I’ll keep a Driver class to take input from the user 
 In the interview, I’ll not focus on solving with the optional requirements but will try to keep my design such that if I’ve time, I can do minimal changes to add them. Let’s look at each of those requirements one-by-one and see which ones I would want to ignore to keep my design clean. The problem is supposed to be solved in 2 hours and so I do not want to get stuck in something that is time-consuming but optional.
 
 For optional requirement #1, I am anyway keeping an Expense model class so adding attributes should be easy.
+
 For optional requirement #2, to keep my code extensible, I’ll anyway be having different types of splits so adding another should be easy.
+
 For optional requirement #3, I’ll keep an expense list in the ExpenseManager.
+
 For optional requirement #4, I’ll have to take extra care of not messing up the logic and so ignoring this optional requirement for now. Let’s see if my design can accommodate that without much change.
 So, I can keep my code extensible for 3 of the 4 optional requirements!
+
 
 Then, I’ll note down the entities (models) that will be involved in the design.
 
 User
+
 Split (EqualSplit, ExactSplit, PercentSplit)
+
 ExpenseMetadata (For Optional requirement #1)
+
 Expense (EqualExpense, ExactExpense, PercentExpense)
+
 ExpenseType (enum to differentiate between different expense types)
+
 Then, I’ll create the models for all of these. Keeping different sub-classes here for ‘Split’ to abstract the logic of how the split amounts are calculated from the caller and also to keep the actual values.
